@@ -1,21 +1,25 @@
 $(document).ready(function(){
+  //Chiamata AJAX
+  $.ajax(
+      {
+        'url' : 'https://flynn.boolean.careers/exercises/api/holidays',
+        'method' : 'GET',
+        'data' : {
+          year : 2018,
+          month : 0
+        },
+        'success': function(data, stato) {
+          // console.log(data);
+          giorniFestivi(data.response);
 
-  // var url = "https://flynn.boolean.careers/exercises/api/holidays?year=2018&month=0"
 
-  // $.ajax(
-  //  {
-  //  url: "https://flynn.boolean.careers/exercises/api/holidays?year=2018&month=0",
-  //  method: "GET",
-  //  success: function (data, stato) {
-  //  $("#risultati").html(data);
-  //  console.log(data);
-  //  },
-  //  error: function (richiesta, stato, errori) {
-  //  alert("E' avvenuto un errore. " + errore);
-  //  }
-  //  }
-  // );
-
+        },
+        'error' : function(request, state, errors) {
+          alert('Errore' + errors);
+        }
+      }
+    );
+  //Ciclo for per appedere la lista in Handlebars
   var thisMonth = moment("2018-01-01");
   $(".month-name").text(thisMonth.format("MMMMM YYYY"));
   var source = $("#entry-template").html();
@@ -37,43 +41,16 @@ $(document).ready(function(){
     $(".days-list").append(html);
   }
 
-  //HANDLEBARS//
-
-  // var source = $("#entry-template").html();
-  // var template = Handlebars.compile(source);
-  var context = {
-    title: "My New Post",
-    body: "This is my first post!"
-  };
-  var html = template(context);
-  $("#app").append(html);
-
-
-  ///MOMEMT-JS///
-  // var giorniMese= moment("01-01-2018", "DD-MM-YYYY").daysInMonth();
-  // console.log(giorniMese);
-
-  function getDaysArrayByMonth() {
-  var daysInMonth = moment("01-01-2018", "DD-MM-YYYY").daysInMonth();
-  var arrDays = [];
-
-  while(daysInMonth) {
-    var current = moment("01-01-2018", "DD-MM-YYYY").date(daysInMonth);
-    arrDays.push(current);
-    daysInMonth--;
-  }
-
-  return arrDays;
- }
-
-  var arrayEmpty = [];
-
-  var schedule = getDaysArrayByMonth();
-  schedule.forEach(function(item) {
-   arrayEmpty.push(item.format("DD-MM-YYYY"));
-   arrayEmpty.reverse();
-  });
-
-  console.log(arrayEmpty);
+  //Funzione giorni festivi
+  function giorniFestivi(holidays) {
+      if (holidays.length >= 1) {
+        for (var i = 0; i < holidays.length; i++) {
+           var holiday = holidays[i];
+           var items = $('.month-day[data-extended-date="' + holiday.date + '"]' );
+           items.addClass('holiday');
+           items.text(items.text() + ' - ' +  holiday.name);
+        }
+      }
+     }
 
 });
