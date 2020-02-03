@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-  var url = "https://flynn.boolean.careers/exercises/api/holidays?year=2018&month=0"
+  // var url = "https://flynn.boolean.careers/exercises/api/holidays?year=2018&month=0"
 
   // $.ajax(
   //  {
@@ -16,8 +16,31 @@ $(document).ready(function(){
   //  }
   // );
 
+  var thisMonth = moment("2018-01-01");
+  $(".month-name").text(thisMonth.format("MMMMM YYYY"));
   var source = $("#entry-template").html();
   var template = Handlebars.compile(source);
+
+  for (var i = 0; i < 31; i++) {
+    var dayObject = {
+      "year" : thisMonth.year(),
+      "day" : i+1,
+      "month" : thisMonth.month(),
+    }
+    var thisDate = moment(dayObject);
+    console.log(thisDate);
+    var context = {
+      "giorno" : thisDate.format("DD MMMM"),
+      "extended-date" : thisDate.format("YYYY-MM-DD")
+    }
+    var html = template(context);
+    $(".days-list").append(html);
+  }
+
+  //HANDLEBARS//
+
+  // var source = $("#entry-template").html();
+  // var template = Handlebars.compile(source);
   var context = {
     title: "My New Post",
     body: "This is my first post!"
@@ -43,14 +66,14 @@ $(document).ready(function(){
   return arrDays;
  }
 
-  var arrayVuoto = [];
+  var arrayEmpty = [];
 
   var schedule = getDaysArrayByMonth();
   schedule.forEach(function(item) {
-   arrayVuoto.push(item.format("DD-MM-YYYY"));
-   arrayVuoto.reverse();
+   arrayEmpty.push(item.format("DD-MM-YYYY"));
+   arrayEmpty.reverse();
   });
 
-  console.log(arrayVuoto);
+  console.log(arrayEmpty);
 
 });

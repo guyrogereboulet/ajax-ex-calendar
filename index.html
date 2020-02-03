@@ -9,16 +9,15 @@
     <title>ajax-ex-calendar</title>
   </head>
   <body>
-    <div id="app">
+    <div class="months-container">
+      <h3 class="month-name"></h3>
+      <ul class="days-list">
 
+      </ul>
     </div>
     <script id="entry-template" type="text/x-handlebars-template">
       <div class="entry">
-        <h1>{{title}}</h1>
-        <div class="body">
-          {{body}}
-        </div>
-      </div>
+      <li class= "month-day" data-extended-date = "{{extended-date}}">{{giorno}}</li>
     </script>
    <script src="js/script.js" charset="utf-8"></script>
   </body>
