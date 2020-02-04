@@ -1,4 +1,6 @@
 $(document).ready(function(){
+
+  //Al click cambio la mia
   //Chiamata AJAX
   $.ajax(
       {
@@ -11,8 +13,6 @@ $(document).ready(function(){
         'success': function(data, stato) {
           // console.log(data);
           giorniFestivi(data.response);
-
-
         },
         'error' : function(request, state, errors) {
           alert('Errore' + errors);
@@ -25,7 +25,8 @@ $(document).ready(function(){
   var source = $("#entry-template").html();
   var template = Handlebars.compile(source);
 
-  for (var i = 0; i < 31; i++) {
+  var daysInMonth = thisMonth.daysInMonth();
+  for (var i = 0; i < daysInMonth; i++) {
     var dayObject = {
       "year" : thisMonth.year(),
       "day" : i+1,
