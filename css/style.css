@@ -1,0 +1,36 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.holiday {
+  color: red;
+}
+
+.months-container {
+  margin: 0 auto;
+  height: 700px;
+  width: 500px;
+  border: 1px solid black;
+  text-align: center;
+}
+
+.select-months {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.before {
+  margin-right: 10px;
+}
+
+.after {
+  margin-left: 10px;
+}
+
+.days-list li {
+  list-style: none;
+}
